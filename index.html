@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+  <head>
+    <script data-require="angular.js@1.3.11" data-semver="1.3.11" src="https://code.angularjs.org/1.3.11/angular.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body ng-controller="formCtrl">
+  	<form name="myForm">	
+    	<label for="country">Country</label>
+			<select ng-model="country"
+        		ng-options="country.name for country in countries track by country.code">
+			</select>
+		<br>
+		  
+		  <label for="title">Title</label>
+		  <input type="text" name="title" ng-model="data.title" placeholder="Enter a title" required ng-minlength="2" ng-pattern="/^a/"/><br>
+		  
+		  <label for="confirm">Confirm</label>
+		  <input type="checkbox" name="confirm" ng-model="data.confirm" /><br>
+		  
+		  <label for="male">Male</label>
+		  <input type="radio" name="gender" ng-model="data.gender" value="male" />
+		  
+		  <label for="female">Female</label>
+		  <input type="radio" name="gender" ng-model="data.gender" value="female" /><br>
+		  
+		  <label for="about_me">About Me</label>
+		  <textarea ng-model="data.about_me" name="about_me"></textarea><br>
+		  
+		  <label for="excitement">Excitement Level</label>
+		  <input type="range" ng-model="data.excitement" name="excitement" /><br>
+		  <input type="submit" name="Sub">
+	</form>
+	<pre>{{ myForm.title.$error | json }}</pre>
+	<pre>{{ myForm.title.$valid }}</pre>
+	<span class="error" ng-if="myForm.$submitted && myForm.title.$error.required">
+	    A name is required!
+	</span>
+	<br>
+	<span class="error" ng-if="myForm.$submitted && myForm.title.$error.pattern">
+		The name must start with the "a" character!
+	</span>
+	<br>
+	<button ng-click="log()">Console log test</button>
+	<br>
+	<button ng-click="showResults = ! showResults">Show results button by toggling with ng-class</button>
+	<br>
+	<button ng-click="showResults = ! showResults">Show results button with ng-show</button>
+
+	<h1></h1>
+
+	<div ng-class="{'hidden': ! showResults }">
+  		<h1>Results</h1>
+		<p>Country: {{ country.name }}</p>
+		<p>Title: {{ data.title }}</p>
+		<p>Confirm: {{ data.confirm }}</p>
+		<p>Gender: {{ data.gender }}</p>
+		<p>About Me: {{ data.about_me }}</p>
+		<p>Excitement: {{ data.excitement }}</p>
+    </div>
+    <div ng-show="showResults">
+    	<h1>Results</h1>
+		<p>Country: {{ country.name }}</p>
+		<p>Title: {{ data.title }}</p>
+		<p>Confirm: {{ data.confirm }}</p>
+		<p>Gender: {{ data.gender }}</p>
+		<p>About Me: {{ data.about_me }}</p>
+		<p>Excitement: {{ data.excitement }}</p>
+
+    </div>
+
+  </body>
+</html>
